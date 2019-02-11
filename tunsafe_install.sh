@@ -192,6 +192,27 @@ EOF
     echo "${content}" | qrencode -o - -t UTF8
 }
 
+add_user(){
+    green "给新用户起个名字，不能和已有用户重复"
+    read -p "请输入用户名：" newname
+    cd /etc/tunsafe/
+    cp client.conf $newname.conf
+    tunsafe genkey | tee temprikey | wg pubkey > tempubkey
+    ipnum=$(grep Allowed /etc/tunsafe/TunSafe.conf | tail -1 | awk -F '[ ./]' '{print $6}')
+    newnum=$((10#${ipnum}+1))
+    sed -i 's%^PrivateKey.*$%'"PrivateKey = $(cat temprikey)"'%' $newname.conf
+    sed -i 's%^Address.*$%'"Address = 10.0.0.$newnum\/24"'%' $newname.conf
+
+cat >> /etc/tunsafe/TunSafe.conf <<-EOF
+[Peer]
+PublicKey = $(cat tempubkey)
+AllowedIPs = 10.0.0.$newnum/32
+EOF
+    tunsafe set tun0 peer $(cat tempubkey) allowed-ips 10.0.0.$newnum/32
+    green "添加完成，文件：/etc/tunsafe/$newname.conf"
+    rm -f temprikey tempubkey
+}
+
 #开始菜单
 start_menu(){
     clear
@@ -205,6 +226,7 @@ start_menu(){
     echo
     green " 1. 安装TunSafe"
     green " 2. 查看客户端二维码"
+    green " 3. 增加用户"
     yellow " 0. 退出脚本"
     echo
     read -p "请输入数字:" num
@@ -214,7 +236,11 @@ start_menu(){
     ;;
     2)
     content=$(cat /etc/tunsafe/client.conf)
+    green "这里只显示默认增加的第一个client的二维码"
     echo "${content}" | qrencode -o - -t UTF8
+    ;;
+    3)
+    add_user
     ;;
     0)
     exit 1
