@@ -197,7 +197,7 @@ add_user(){
     read -p "请输入用户名：" newname
     cd /etc/tunsafe/
     cp client.conf $newname.conf
-    tunsafe genkey | tee temprikey | wg pubkey > tempubkey
+    tunsafe genkey | tee temprikey | tunsafe pubkey > tempubkey
     ipnum=$(grep Allowed /etc/tunsafe/TunSafe.conf | tail -1 | awk -F '[ ./]' '{print $6}')
     newnum=$((10#${ipnum}+1))
     sed -i 's%^PrivateKey.*$%'"PrivateKey = $(cat temprikey)"'%' $newname.conf
