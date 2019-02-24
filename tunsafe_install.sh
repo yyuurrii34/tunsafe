@@ -67,7 +67,7 @@ PostUp   = iptables -A FORWARD -i tun0 -j ACCEPT; iptables -A FORWARD -o tun0 -j
 PostDown = iptables -D FORWARD -i tun0 -j ACCEPT; iptables -D FORWARD -o tun0 -j ACCEPT; iptables -t nat -D POSTROUTING -o $eth -j MASQUERADE
 ListenPort = $port
 DNS = 8.8.8.8
-MTU = 1420
+MTU = 1380
 
 [Peer]
 PublicKey = $c2
@@ -81,7 +81,7 @@ PrivateKey = $c1
 Address = 10.0.0.2/24 
 ObfuscateKey = $obfsstr
 DNS = 8.8.8.8
-MTU = 1420
+MTU = 1380
 
 [Peer]
 PublicKey = $s2
@@ -102,7 +102,7 @@ ListenPortTCP = $port
 PostUp   = iptables -A FORWARD -i tun0 -j ACCEPT; iptables -A FORWARD -o tun0 -j ACCEPT; iptables -t nat -A POSTROUTING -o $eth -j MASQUERADE
 PostDown = iptables -D FORWARD -i tun0 -j ACCEPT; iptables -D FORWARD -o tun0 -j ACCEPT; iptables -t nat -D POSTROUTING -o $eth -j MASQUERADE
 DNS = 8.8.8.8
-MTU = 1420
+MTU = 1380
 
 [Peer]
 PublicKey = $c2
@@ -116,7 +116,7 @@ PrivateKey = $c1
 Address = 10.0.0.2/24 
 ObfuscateKey = $obfsstr
 DNS = 8.8.8.8
-MTU = 1420
+MTU = 1380
 
 [Peer]
 PublicKey = $s2
@@ -139,7 +139,7 @@ PostUp   = iptables -A FORWARD -i tun0 -j ACCEPT; iptables -A FORWARD -o tun0 -j
 PostDown = iptables -D FORWARD -i tun0 -j ACCEPT; iptables -D FORWARD -o tun0 -j ACCEPT; iptables -t nat -D POSTROUTING -o $eth -j MASQUERADE
 ListenPort = $port
 DNS = 8.8.8.8
-MTU = 1420
+MTU = 1380
 
 [Peer]
 PublicKey = $c2
@@ -154,7 +154,7 @@ Address = 10.0.0.2/24
 ObfuscateKey = $obfsstr
 ObfuscateTCP=tls-chrome
 DNS = 8.8.8.8
-MTU = 1420
+MTU = 1380
 
 [Peer]
 PublicKey = $s2
