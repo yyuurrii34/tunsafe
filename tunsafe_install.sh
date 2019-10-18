@@ -28,11 +28,14 @@ rand(){
 
 tunsafe_install(){
     version=$(cat /etc/os-release | awk -F '[".]' '$1=="VERSION="{print $2}')  
-    apt-get update -y
-    sudo apt-get install -y git curl make
+    #apt-get update -y
+    yum update -y
+    #sudo apt-get install -y git curl make
+    sudo yum install -y git curl make
     git clone https://github.com/TunSafe/TunSafe.git
     cd TunSafe
-    sudo apt-get install -y clang-6.0 
+    #sudo apt-get install -y clang-6.0 
+    sudo yum install -y clang-6.0
     sudo make && sudo make install
     
     sudo echo net.ipv4.ip_forward = 1 >> /etc/sysctl.conf
@@ -183,7 +186,8 @@ EOF
 
     sudo chmod +x /etc/init.d/tunstart
     cd /etc/init.d
-    sudo update-rc.d tunstart defaults
+    #sudo update-rc.d tunstart defaults
+    sudo yum update tunstart
     cd /etc/tunsafe
     sudo tunsafe start -d TunSafe.conf
     
