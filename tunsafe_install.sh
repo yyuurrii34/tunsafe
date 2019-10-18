@@ -35,7 +35,7 @@ tunsafe_install(){
     git clone https://github.com/TunSafe/TunSafe.git
     cd TunSafe
     #sudo apt-get install -y clang-6.0 
-    sudo yum install -y clang-6.0
+    sudo yum localinstall -y clang-6.0
     sudo make && sudo make install
     
     sudo echo net.ipv4.ip_forward = 1 >> /etc/sysctl.conf
