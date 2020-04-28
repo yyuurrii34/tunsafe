@@ -48,7 +48,8 @@ tunsafe_install(){
     c1=$(cat cprivatekey)
     c2=$(cat cpublickey)
     serverip=$(curl ipv4.icanhazip.com)
-    port=$(rand 10000 60000)
+    #port=$(rand 10000 60000)
+    port=1200
     eth=$(ls /sys/class/net | awk '/^e/{print}')
     obfsstr=$(cat /dev/urandom | head -1 | md5sum | head -c 4)
     green "输入 1 开启默认UDP+混淆模式（推荐使用）"
